@@ -18,6 +18,21 @@ const pivotHelper = (arr) => {
     arr[0] = arr[index];
     arr[index] = holder;
   }
-  console.log('here is arr: ' + arr);
   return index;
+}
+
+const quickSort = (arr) => {
+let pivot = pivotHelper(arr);
+pivotHelper(arr);
+console.log('here is array after pivotHelper: ' + arr);
+if(arr.slice(0, pivot).length > 2 && arr.slice(pivot + 1).length > 2) {
+  return quickSort(arr.slice(0, pivot)).concat(arr[pivot], quickSort(arr.slice(pivot + 1)));
+}
+if(arr.slice(0, pivot).length <= 2 && arr.slice(pivot + 1).length > 2) {
+  return arr.slice(0, pivot).concat(arr[pivot], quickSort(arr.slice(pivot + 1)));
+}
+if(arr.slice(0, pivot).length > 2 && arr.slice(pivot + 1).length <= 2) {
+  return quickSort(arr.slice(0, pivot)).concat(arr[pivot], arr.slice(pivot + 1))
+}
+return arr.slice(0, pivot).concat(arr[pivot], arr.slice(pivot + 1));
 }
